@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weekly Serving Roster</title>
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body,
+      html {
+        overflow-x: hidden;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm"
+    >
+      <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <i class="fas fa-cross me-2"></i>St. Louis Catholic Church
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto gap-2">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#activities">Activities</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#roster">Roster</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Roster Header Hero -->
+    <section class="roster-header">
+      <div class="roster-header-content">
+        <h1>📋 Weekly Service Roster</h1>
+        <p>Sunday-Saturday | Morning & Evening Masses</p>
+      </div>
+    </section>
+
+    <!-- Announcements Section -->
+    <section id="announcements" class="section-dark py-5">
+      <div class="container">
+        <div class="announcement-heading">
+          <h1 class="section-title mb-0">📢 Important Announcements</h1>
+          <button
+            class="edit-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#editAnnouncementsModal"
+          >
+            ✏️ Edit
+          </button>
+        </div>
+        <div class="section-divider mx-0 mb-5"></div>
+
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="announcement-card">
+              <h4>📌 Training Session This Saturday</h4>
+              <p>
+                All new and experienced servers are invited to our monthly
+                training session on the first Saturday of the month at 12:00 PM
+                in the sacristy. Topics include liturgical procedures and proper
+                protocols.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="announcement-card">
+              <h4>📌 Funeral Services Available</h4>
+              <p>
+                If you'd like to be placed on the standby roster for funeral
+                services, please contact the sacristy or speak with the Altar
+                Server Coordinator. Serving at funerals is a profound act of
+                mercy and service.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="announcement-card">
+              <h4>📌 Weekly Meeting Reminder</h4>
+              <p>
+                All altar servers are expected to attend our weekly meetings
+                held on Sundays immediately after the 9:00 AM Mass in the parish
+                hall. Announcements, formation, and updates on liturgical duties
+                will be discussed.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="announcement-card">
+              <h4>📌 Advent Season Extra Servers Needed</h4>
+              <p>
+                We are looking for volunteers to assist during our special
+                Advent services. Sign-up sheets are posted in the parish hall
+                and sacristy. Contact the coordinator if you have any questions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roster Section -->
+    <section id="roster" class="section-light py-5">
+      <div class="container">
+        <div class="roster-section-header">
+          <h1 class="section-title mb-0">This Week's Serving Schedule</h1>
+          <button
+            class="edit-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#editRosterModal"
+          >
+            ✏️ Edit
+          </button>
+        </div>
+        <div class="section-divider mx-0 mb-5"></div>
+
+        <!-- Sunday -->
+        <div class="roster-day">
+          <h3>☀️ Sunday</h3>
+          <div class="table-responsive">
+            <table class="table table-hover roster-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Post</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>Thurifer</td>
+                  <td>Iguegbe Enyiolisa</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>Bolt Boy</td>
+                  <td>Peter Okafor</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>Cross Bearer</td>
+                  <td>Chidi Nwankwo</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>MC</td>
+                  <td>Chibuike Eze</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>Acolyte</td>
+                  <td>Achioya Victor</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>Acolyte</td>
+                  <td>Ohaeri Wisdom</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>9:00 AM</td>
+                  <td>Thurifer</td>
+                  <td>Daniel Okafor</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>9:00 AM</td>
+                  <td>Bolt Boy</td>
+                  <td>Samuel Udoh</td>
+                  <td><span class="status-pending">⏳ Pending</span></td>
+                </tr>
+                <tr>
+                  <td>9:00 AM</td>
+                  <td>Cross Bearer</td>
+                  <td>Michael Ugochukwu</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>9:00 AM</td>
+                  <td>MC</td>
+                  <td>Anyanwu Davis</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>9:00 AM</td>
+                  <td>Acolyte</td>
+                  <td>Chrisantus Damian</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>9:00 AM</td>
+                  <td>Acolyte</td>
+                  <td>Anamege Samuel</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Monday -->
+        <div class="roster-day">
+          <h3>📅 Monday</h3>
+          <div class="table-responsive">
+            <table class="table table-hover roster-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Post</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>MC</td>
+                  <td>Tunde Ajayi</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>Acolyte</td>
+                  <td>David Obi</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:30 PM</td>
+                  <td>MC</td>
+                  <td>Samuel Adeyemi</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:30 PM</td>
+                  <td>Acolyte</td>
+                  <td>Kolawole Bello</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Tuesday -->
+        <div class="roster-day">
+          <h3>📅 Tuesday</h3>
+          <div class="table-responsive">
+            <table class="table table-hover roster-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Post</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>MC</td>
+                  <td>Festus Ikechi</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>Acolyte</td>
+                  <td>Blessing Okafor</td>
+                  <td><span class="status-pending">⏳ Pending</span></td>
+                </tr>
+                <tr>
+                  <td>6:30 PM</td>
+                  <td>MC</td>
+                  <td>Emeka Nwosu</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:30 PM</td>
+                  <td>Acolyte</td>
+                  <td>Ifeanyi Nkoli</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Wednesday -->
+        <div class="roster-day">
+          <h3>📅 Wednesday</h3>
+          <div class="table-responsive">
+            <table class="table table-hover roster-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Post</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>MC</td>
+                  <td>Chinedu Okonkwo</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>Acolyte</td>
+                  <td>Obinna Ugwu</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:30 PM</td>
+                  <td>MC</td>
+                  <td>Nonso Anyanwu</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:30 PM</td>
+                  <td>Acolyte</td>
+                  <td>Chisom Ekene</td>
+                  <td><span class="status-pending">⏳ Pending</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Thursday -->
+        <div class="roster-day">
+          <h3>📅 Thursday</h3>
+          <div class="table-responsive">
+            <table class="table table-hover roster-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Post</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>MC</td>
+                  <td>Victor Nnadi</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>Acolyte</td>
+                  <td>Kenechukwu Mba</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:30 PM</td>
+                  <td>MC</td>
+                  <td>Ikechukwu Njoku</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:30 PM</td>
+                  <td>Acolyte</td>
+                  <td>Amarachi Okeke</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Friday -->
+        <div class="roster-day">
+          <h3>📅 Friday</h3>
+          <div class="table-responsive">
+            <table class="table table-hover roster-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Post</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>MC</td>
+                  <td>Chibueze Okeke</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:00 AM</td>
+                  <td>Acolyte</td>
+                  <td>Onyekachi Obi</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:30 PM</td>
+                  <td>MC</td>
+                  <td>Sopuruchukwu Ndukwu</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>6:30 PM</td>
+                  <td>Acolyte</td>
+                  <td>Ifeoluwa Adebayo</td>
+                  <td><span class="status-pending">⏳ Pending</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Saturday -->
+        <div class="roster-day">
+          <h3>📅 Saturday</h3>
+          <div class="table-responsive">
+            <table class="table table-hover roster-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Post</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>7:00 AM</td>
+                  <td>Acolyte</td>
+                  <td>Kelechi Uche</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>7:00 AM</td>
+                  <td>Acolyte</td>
+                  <td>Gideon Mwangi</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+                <tr>
+                  <td>7:00 AM</td>
+                  <td>Cross Bearer/MC</td>
+                  <td>Tunde Adeyemi</td>
+                  <td><span class="status-confirmed">✓ Confirmed</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Edit Announcements Modal -->
+    <div
+      class="modal fade"
+      id="editAnnouncementsModal"
+      tabindex="-1"
+      aria-labelledby="editAnnouncementsLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-dark text-light">
+          <div class="modal-header border-secondary">
+            <h1 class="modal-title" id="editAnnouncementsLabel">
+              ✏️ Edit Announcements
+            </h1>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="backend-notice">
+              <strong> Frontend Only:</strong> This form is a UI mockup. Backend
+              integration needed to save changes to the database.
+            </div>
+            <form>
+              <div class="mb-3">
+                <label for="announcementTitle1" class="form-label"
+                  >Announcement Title</label
+                >
+                <input
+                  type="text"
+                  class="form-control bg-dark text-light border-secondary"
+                  id="announcementTitle1"
+                  placeholder="Enter announcement title"
+                  value="Training Session This Saturday"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="announcementContent1" class="form-label"
+                  >Announcement Content</label
+                >
+                <textarea
+                  class="form-control bg-dark text-light border-secondary"
+                  id="announcementContent1"
+                  rows="3"
+                  placeholder="Enter announcement content"
+                >
+All new and experienced servers are invited to our monthly training session on the first Saturday of the month at 12:00 PM in the sacristy. Topics include liturgical procedures and proper protocols.</textarea
+                >
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer border-secondary">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-danger" disabled>
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Roster Modal -->
+    <div
+      class="modal fade"
+      id="editRosterModal"
+      tabindex="-1"
+      aria-labelledby="editRosterLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-dark text-light">
+          <div class="modal-header border-secondary">
+            <h1 class="modal-title" id="editRosterLabel">
+              ✏️ Edit Weekly Roster
+            </h1>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="backend-notice">
+              <strong> Frontend Only:</strong> This form is a UI mockup. Backend
+              integration needed to save changes to the database.
+            </div>
+            <form>
+              <div class="mb-3">
+                <label for="selectDay" class="form-label">Select Day</label>
+                <select
+                  class="form-select bg-dark text-light border-secondary"
+                  id="selectDay"
+                >
+                  <option selected>Sunday</option>
+                  <option>Monday</option>
+                  <option>Tuesday</option>
+                  <option>Wednesday</option>
+                  <option>Thursday</option>
+                  <option>Friday</option>
+                  <option>Saturday</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="selectTime" class="form-label">Select Time</label>
+                <select
+                  class="form-select bg-dark text-light border-secondary"
+                  id="selectTime"
+                >
+                  <option selected>6:00 AM</option>
+                  <option>7:00 AM</option>
+                  <option>9:00 AM</option>
+                  <option>6:30 PM</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="selectPost" class="form-label">Select Post</label>
+                <select
+                  class="form-select bg-dark text-light border-secondary"
+                  id="selectPost"
+                >
+                  <option selected>Thurifer</option>
+                  <option>Acolyte</option>
+                  <option>Cross Bearer</option>
+                  <option>MC</option>
+                  <option>Bolt Boy</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="serverName" class="form-label">Server Name</label>
+                <input
+                  type="text"
+                  class="form-control bg-dark text-light border-secondary"
+                  id="serverName"
+                  placeholder="Enter server name"
+                  value="Iguegbe Enyiolisa"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="serverStatus" class="form-label">Status</label>
+                <select
+                  class="form-select bg-dark text-light border-secondary"
+                  id="serverStatus"
+                >
+                  <option selected>Confirmed</option>
+                  <option>Pending</option>
+                  <option>Unavailable</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer border-secondary">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="button" class="btn btn-danger" disabled>
+              Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white-50 py-4 border-top border-secondary">
+      <div class="container">
+        <div class="row align-items-center text-center text-md-start">
+          <div class="col-md-4 mb-3 mb-md-0">
+            <p class="fw-bold text-white mb-0">
+              <i class="fas fa-cross me-2"></i>St. Louis Catholic Church
+            </p>
+          </div>
+          <div class="col-md-4 mb-3 mb-md-0">
+            <p class="small mb-1">&copy; 2026 All Rights Reserved</p>
+            <p class="small">"Introibo ad altare Dei"</p>
+          </div>
+          <div class="col-md-4 text-md-end">
+            <a
+              href="https://www.facebook.com/share/15JFYuHT6f/"
+              class="text-white-50 me-3"
+              aria-label="Facebook"
+              target="_blank"
+            >
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a
+              href="https://www.instagram.com/stlouis_egbeda?igsh=MXMzbXoyejNoeDRtaw=="
+              class="text-white-50 me-3"
+              aria-label="Instagram"
+              target="_blank"
+            >
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a
+              href="https://www.youtube.com/@ST.LOUISCATHOLICCHURCHEGBE-p2v"
+              class="text-white-50 me-3"
+              aria-label="YouTube"
+              target="_blank"
+            >
+              <i class="fab fa-youtube"></i>
+            </a>
+            <a href="#" class="text-white-50" aria-label="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
