@@ -288,7 +288,7 @@ section {
   display: block;
 }
 
-/* ===== ACTIVITY CARDS ===== */
+
 .activity-card {
   background: linear-gradient(135deg, #1a1a2e, #2a2a3e);
   border-radius: 12px;
@@ -391,7 +391,7 @@ section {
   color: var(--text-muted) !important;
   font-weight: 100;
 }
-/* ===== TESTIMONIAL CARDS ===== */
+
 .testimonial-card {
   background: linear-gradient(135deg, #1a1a2e, #2a2a3e);
   border-radius: 12px;
@@ -778,7 +778,7 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
-/* ROSTER STYLING */
+
 
 .roster-header {
   background:

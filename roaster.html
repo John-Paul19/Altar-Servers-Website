@@ -29,6 +29,24 @@
       }
     </style>
   </head>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const navLinks = document.querySelectorAll(".nav-link");
+      const navbarToggler = document.querySelector(".navbar-toggler");
+      const navbarCollapse = document.querySelector(".navbar-collapse");
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          // Use Bootstrap's collapse API
+          const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+            toggle: false,
+          });
+          bsCollapse.hide();
+        });
+      });
+    });
+  </script>
   <body>
     <nav
       class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm"
