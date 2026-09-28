@@ -1,17 +1,15 @@
 const express = require("express");
-const rateLimit = require("express-rate-limit");
 const Admin = require("../models/Admin");
 const requireAdmin = require("../middleware/requireAdmin");
+const { createLimiter } = require("../middleware/rateLimit");
 
 const router = express.Router();
 
 // Slows down password guessing against a publicly reachable login form.
-const loginLimiter = rateLimit({
+const loginLimiter = createLimiter({
   windowMs: 15 * 60 * 1000,
   max: 10,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { error: "Too many login attempts. Please try again in 15 minutes." },
+  message: "Too many login attempts. Please try again in 15 minutes.",
 });
 
 router.post("/login", loginLimiter, async (req, res) => {

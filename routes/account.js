@@ -1,27 +1,23 @@
 const express = require("express");
-const rateLimit = require("express-rate-limit");
 const Admin = require("../models/Admin");
 const { sendPasswordReset, isConfigured } = require("../mailer");
+const { createLimiter } = require("../middleware/rateLimit");
 
 const router = express.Router();
 
 const MIN_PASSWORD_LENGTH = 10;
 
 // Stops the reset form being used to spray email at someone's inbox.
-const forgotLimiter = rateLimit({
+const forgotLimiter = createLimiter({
   windowMs: 15 * 60 * 1000,
   max: 5,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { error: "Too many requests. Please try again in 15 minutes." },
+  message: "Too many requests. Please try again in 15 minutes.",
 });
 
-const tokenLimiter = rateLimit({
+const tokenLimiter = createLimiter({
   windowMs: 15 * 60 * 1000,
   max: 20,
-  standardHeaders: true,
-  legacyHeaders: false,
-  message: { error: "Too many attempts. Please try again in 15 minutes." },
+  message: "Too many attempts. Please try again in 15 minutes.",
 });
 
 // Looks up an account by the raw token from the emailed link. Returns null for

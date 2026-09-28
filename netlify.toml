@@ -1,8 +1,22 @@
 # The site's static files live in public/ since the backend was added.
 # Without this, Netlify looks for index.html at the repo root and serves a 404.
-#
-# Note: Netlify only serves static files — it cannot run server.js, so the
-# /api/* routes do not exist here. The roster and login pages need the Node
-# app to be hosted somewhere that can run it.
 [build]
   publish = "public"
+  functions = "netlify/functions"
+
+# Netlify cannot run a long-lived Node server, so the Express app is wrapped as
+# a serverless function and every /api/* request is rewritten to it. Status 200
+# makes this an internal rewrite rather than a visible redirect, so the browser
+# still sees ordinary same-origin /api/... URLs and session cookies keep working.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
+[functions]
+  node_bundler = "esbuild"
+  # Mongoose and connect-mongo load drivers dynamically, which bundlers cannot
+  # follow; shipping them as real node_modules avoids runtime "cannot find
+  # module" errors.
+  external_node_modules = ["mongoose", "connect-mongo"]
