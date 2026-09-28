@@ -25,10 +25,14 @@ router.post("/login", loginLimiter, async (req, res) => {
     const admin = await Admin.findOne({ email: String(email).toLowerCase().trim() })
       .select("+passwordHash");
 
-    // Same response whether the account is missing or the password is wrong,
-    // so the form can't be used to discover which emails are registered.
-    const valid = admin && (await admin.verifyPassword(String(password)));
+    // An invited account has no password yet, so it must not be able to sign in
+    // until its owner has been through the emailed link.
+    const valid =
+      admin && admin.canSignIn() && (await admin.verifyPassword(String(password)));
     if (!valid) {
+      // Same response whether the account is missing, not yet activated, or the
+      // password is wrong — so the form can't be used to discover which emails
+      // are registered.
       return res.status(401).json({ error: "Invalid email or password" });
     }
 

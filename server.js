@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 
 const connectDB = require("./db");
 const authRoutes = require("./routes/auth");
+const accountRoutes = require("./routes/account");
 const rosterRoutes = require("./routes/roster");
 const announcementRoutes = require("./routes/announcements");
 
@@ -47,6 +48,7 @@ app.use(
 );
 
 app.use("/api/auth", authRoutes);
+app.use("/api/account", accountRoutes);
 app.use("/api/roster", rosterRoutes);
 app.use("/api/announcements", announcementRoutes);
 

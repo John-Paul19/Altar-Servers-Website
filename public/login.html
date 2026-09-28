@@ -79,6 +79,32 @@
           </button>
         </form>
 
+        <div class="text-center mt-3">
+          <button type="button" class="link-btn" id="forgotLink">
+            Forgotten your password?
+          </button>
+        </div>
+
+        <form id="forgotForm" class="forgot-form mt-3" hidden>
+          <label for="forgotEmail" class="form-label">
+            Enter your email and we will send you a reset link
+          </label>
+          <input
+            type="email"
+            class="form-control contact-input mb-3"
+            id="forgotEmail"
+            autocomplete="username"
+          />
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-contact fw-bold flex-grow-1" id="forgotBtn">
+              <i class="fas fa-paper-plane me-2"></i>Send reset link
+            </button>
+            <button type="button" class="btn btn-secondary" id="forgotCancel">
+              Cancel
+            </button>
+          </div>
+        </form>
+
         <div class="text-center mt-4">
           <a href="index.html" class="login-back">
             <i class="fas fa-arrow-left me-1"></i>Back to site
@@ -91,11 +117,72 @@
       const form = document.getElementById("loginForm");
       const errorBox = document.getElementById("loginError");
       const submitBtn = document.getElementById("submitBtn");
+      const forgotForm = document.getElementById("forgotForm");
+      const forgotLink = document.getElementById("forgotLink");
 
       function showError(message) {
         errorBox.textContent = message;
+        errorBox.className = "login-error";
         errorBox.hidden = false;
       }
+
+      function showNotice(message) {
+        errorBox.textContent = message;
+        errorBox.className = "login-error login-notice";
+        errorBox.hidden = false;
+      }
+
+      forgotLink.addEventListener("click", () => {
+        forgotForm.hidden = false;
+        forgotLink.hidden = true;
+        errorBox.hidden = true;
+        document.getElementById("forgotEmail").value =
+          document.getElementById("email").value.trim();
+        document.getElementById("forgotEmail").focus();
+      });
+
+      document.getElementById("forgotCancel").addEventListener("click", () => {
+        forgotForm.hidden = true;
+        forgotLink.hidden = false;
+        errorBox.hidden = true;
+      });
+
+      forgotForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        errorBox.hidden = true;
+
+        const email = document.getElementById("forgotEmail").value.trim();
+        if (!email) {
+          showError("Please enter your email address.");
+          return;
+        }
+
+        const button = document.getElementById("forgotBtn");
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending…';
+
+        try {
+          const response = await fetch("/api/account/forgot", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email }),
+          });
+          const data = await response.json().catch(() => ({}));
+
+          if (response.ok) {
+            forgotForm.hidden = true;
+            forgotLink.hidden = false;
+            showNotice(data.message || "Check your inbox for a reset link.");
+          } else {
+            showError(data.error || "Could not send a reset link.");
+          }
+        } catch (err) {
+          showError("Could not reach the server. Check your connection.");
+        }
+
+        button.disabled = false;
+        button.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Send reset link';
+      });
 
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
