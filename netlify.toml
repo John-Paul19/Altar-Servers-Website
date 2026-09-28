@@ -1,0 +1,8 @@
+# The site's static files live in public/ since the backend was added.
+# Without this, Netlify looks for index.html at the repo root and serves a 404.
+#
+# Note: Netlify only serves static files — it cannot run server.js, so the
+# /api/* routes do not exist here. The roster and login pages need the Node
+# app to be hosted somewhere that can run it.
+[build]
+  publish = "public"
