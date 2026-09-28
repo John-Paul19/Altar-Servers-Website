@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>St. Louis Altar Servers</title>
 
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem("theme") === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
       rel="stylesheet"
@@ -36,6 +46,35 @@
           bsCollapse.hide();
         });
       });
+
+      const themeToggle = document.getElementById("themeToggle");
+      const themeIcon = themeToggle ? themeToggle.querySelector("i") : null;
+
+      function syncThemeIcon() {
+        const isLight =
+          document.documentElement.getAttribute("data-theme") === "light";
+        if (themeIcon) {
+          themeIcon.classList.toggle("fa-sun", !isLight);
+          themeIcon.classList.toggle("fa-moon", isLight);
+        }
+      }
+
+      syncThemeIcon();
+
+      if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+          const isLight =
+            document.documentElement.getAttribute("data-theme") === "light";
+          if (isLight) {
+            document.documentElement.removeAttribute("data-theme");
+            localStorage.setItem("theme", "dark");
+          } else {
+            document.documentElement.setAttribute("data-theme", "light");
+            localStorage.setItem("theme", "light");
+          }
+          syncThemeIcon();
+        });
+      }
     });
   </script>
   <body>
@@ -74,6 +113,16 @@
             <li class="nav-item">
               <a class="nav-link" href="#contact">Contact</a>
             </li>
+            <li class="nav-item d-flex align-items-center">
+              <button
+                id="themeToggle"
+                class="theme-toggle-btn"
+                type="button"
+                aria-label="Toggle light and dark mode"
+              >
+                <i class="fas fa-sun"></i>
+              </button>
+            </li>
           </ul>
         </div>
       </div>
@@ -85,7 +134,7 @@
     >
       <div class="container hero-content">
         <div class="hero-badge mb-4">
-          <i class="fas fa-hands-praying me-2"></i>SINCE 1888
+          <i class="fas fa-cross me-2"></i>SINCE 1888
         </div>
         <h1 class="display-2 fw-bold mb-3">
           St. John Berchmans <br />
@@ -98,14 +147,14 @@
         </p>
         <div class="d-flex gap-3 justify-content-center flex-wrap">
           <a href="#contact" class="btn btn-light btn-lg fw-bold">
-            <i class="fas fa-info-circle me-2"></i>Get Involved
+            <i class="fas fa-hands-praying me-2"></i>Get Involved
           </a>
           <a
             href="./roaster.html"
             class="btn btn-outline-light btn-lg fw-bold"
             target="_blank"
           >
-            <i class="fas fa-clipboard me-2"></i>View Serving Roster
+            <i class="fas fa-scroll me-2"></i>View Serving Roster
           </a>
         </div>
       </div>
@@ -287,7 +336,9 @@
         <h2 class="section-title text-center mb-3">Our History</h2>
         <div class="section-divider mx-auto mb-4"></div>
 
-        <h3 class="text-center mb-4">Our Patron Saint: St. John Berchmans</h3>
+        <h3 class="history-patron text-center mb-4">
+          Our Patron Saint: St. John Berchmans
+        </h3>
 
         <div class="row justify-content-center">
           <div class="col-lg-10">
@@ -296,7 +347,13 @@
               Berchmans found his calling in the smallest of duties. Serving in
               the sacristy, maintaining the altar, and assisting during Mass,
               John understood a profound truth:
-              <strong>"Faithfulness in little things is a big thing."</strong>
+            </p>
+
+            <blockquote class="history-quote">
+              "Faithfulness in little things is a big thing."
+            </blockquote>
+
+            <p class="mb-4 history-correct">
               This humble Belgian saint became the patron of altar servers, not
               through grand gestures, but through meticulous devotion to the
               sacred work of the altar.
@@ -313,10 +370,10 @@
             <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
               <div class="col">
                 <div class="value-box">
-                  <h5 class="fw-bold mb-2">
-                    <i class="fas fa-check-circle text-accent me-2"></i>Serve
-                    with Precision
-                  </h5>
+                  <div class="icon-box mb-3">
+                    <i class="fas fa-compass"></i>
+                  </div>
+                  <h5 class="fw-bold mb-2">Serve with Precision</h5>
                   <p class="small history-correct">
                     Just as Berchmans attended to every detail in preparing the
                     altar, our servers are trained in the careful choreography
@@ -326,10 +383,10 @@
               </div>
               <div class="col">
                 <div class="value-box">
-                  <h5 class="fw-bold mb-2">
-                    <i class="fas fa-check-circle text-accent me-2"></i>Foster
-                    Spiritual Growth
-                  </h5>
+                  <div class="icon-box mb-3">
+                    <i class="fas fa-seedling"></i>
+                  </div>
+                  <h5 class="fw-bold mb-2">Foster Spiritual Growth</h5>
                   <p class="small history-correct">
                     Berchmans saw his work as a pathway to holiness. Our servers
                     learn that serving at the altar is not a task, but a
@@ -339,10 +396,10 @@
               </div>
               <div class="col">
                 <div class="value-box">
-                  <h5 class="fw-bold mb-2">
-                    <i class="fas fa-check-circle text-accent me-2"></i>Embody
-                    Humility
-                  </h5>
+                  <div class="icon-box mb-3">
+                    <i class="fas fa-dove"></i>
+                  </div>
+                  <h5 class="fw-bold mb-2">Embody Humility</h5>
                   <p class="small history-correct">
                     In a world that celebrates the spotlight, our servers, like
                     Berchmans, understand that true greatness lies in faithful,
@@ -360,11 +417,12 @@
               attention, and serving with hearts full of devotion. Whether
               preparing candles, assisting the priest, or maintaining the sacred
               space, they echo his timeless wisdom:
-              <strong
-                >"In small things, faithfulness. In big things, courage. In all
-                things, charity."</strong
-              >
             </p>
+
+            <blockquote class="history-quote">
+              "In small things, faithfulness. In big things, courage. In all
+              things, charity."
+            </blockquote>
 
             <h4 class="mb-3">A Living Witness</h4>
             <p class="history-correct">

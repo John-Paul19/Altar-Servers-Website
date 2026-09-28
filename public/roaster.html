@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weekly Serving Roster</title>
+
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem("theme") === "light") {
+            document.documentElement.setAttribute("data-theme", "light");
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm"
+    >
+      <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold" href="index.html">
+          <i class="fas fa-cross me-2"></i>St. Louis Catholic Church
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto gap-2">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#activities">Activities</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#roster">Roster</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#contact">Contact</a>
+            </li>
+            <li class="nav-item" id="signInLink" hidden>
+              <a class="nav-link" href="login.html">
+                <i class="fas fa-right-to-bracket me-1"></i>Admin
+              </a>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+              <button
+                id="themeToggle"
+                class="theme-toggle-btn"
+                type="button"
+                aria-label="Toggle light and dark mode"
+              >
+                <i class="fas fa-sun"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="roster-header">
+      <div class="roster-header-content">
+        <h1><i class="fas fa-scroll me-2"></i>Weekly Service Roster</h1>
+        <p>Sunday–Saturday | Morning &amp; Evening Masses</p>
+      </div>
+    </section>
+
+    <div id="pageMessage" class="page-message" role="status" aria-live="polite" hidden></div>
+
+    <div id="adminBar" class="admin-bar" hidden>
+      <div class="container admin-bar-inner">
+        <span class="admin-greeting">
+          <i class="fas fa-user-shield me-2"></i>Signed in as
+          <strong id="adminName"></strong>
+        </span>
+        <div class="admin-actions">
+          <button type="button" class="admin-btn" id="editRosterBtn" hidden>
+            <i class="fas fa-pen-to-square me-1"></i>Edit roster
+          </button>
+          <button type="button" class="admin-btn admin-btn-primary" id="saveRosterBtn" hidden>
+            <i class="fas fa-floppy-disk me-1"></i>Save
+          </button>
+          <button type="button" class="admin-btn" id="cancelEditBtn" hidden>
+            Cancel
+          </button>
+          <button type="button" class="admin-btn" id="nextWeekBtn" hidden>
+            <i class="fas fa-copy me-1"></i>Create next week
+          </button>
+          <button type="button" class="admin-btn admin-btn-primary" id="publishBtn" hidden>
+            <i class="fas fa-upload me-1"></i>Publish
+          </button>
+          <button type="button" class="admin-btn" id="addAnnouncementBtn" hidden>
+            <i class="fas fa-plus me-1"></i>Announcement
+          </button>
+          <button type="button" class="admin-btn admin-btn-ghost" id="logoutBtn">
+            <i class="fas fa-right-from-bracket me-1"></i>Log out
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <section id="announcements" class="section-dark py-5">
+      <div class="container">
+        <div class="announcement-heading">
+          <h1 class="section-title mb-0">
+            <i class="fas fa-bullhorn me-2"></i>Important Announcements
+          </h1>
+        </div>
+        <div class="section-divider mx-0 mb-5"></div>
+
+        <div class="row g-4" id="announcementList"></div>
+      </div>
+    </section>
+
+    <section id="roster" class="section-light py-5">
+      <div class="container">
+        <div class="roster-section-header">
+          <h1 class="section-title mb-0">
+            <i class="fas fa-list-check me-2"></i>Serving Schedule
+          </h1>
+          <select
+            id="weekSelect"
+            class="week-select"
+            aria-label="Choose which week to view"
+            hidden
+          ></select>
+        </div>
+        <div class="section-divider mx-0 mb-4"></div>
+
+        <div class="week-heading">
+          <h2 id="weekLabel">Loading…</h2>
+          <span id="draftBadge" class="draft-badge" hidden>
+            <i class="fas fa-eye-slash me-1"></i>Draft — not yet visible to servers
+          </span>
+        </div>
+
+        <div id="rosterDays"></div>
+      </div>
+    </section>
+
+    <div
+      class="modal fade"
+      id="announcementModal"
+      tabindex="-1"
+      aria-labelledby="announcementModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-dark text-light">
+          <div class="modal-header border-secondary">
+            <h1 class="modal-title" id="announcementModalLabel">Announcement</h1>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div id="announcementError" class="login-error" role="alert" hidden></div>
+            <input type="hidden" id="announcementId" />
+            <div class="mb-3">
+              <label for="announcementTitle" class="form-label">Title</label>
+              <input
+                type="text"
+                class="form-control bg-dark text-light border-secondary"
+                id="announcementTitle"
+                placeholder="Enter announcement title"
+                maxlength="200"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="announcementBody" class="form-label">Content</label>
+              <textarea
+                class="form-control bg-dark text-light border-secondary"
+                id="announcementBody"
+                rows="5"
+                placeholder="Enter announcement content"
+                maxlength="5000"
+              ></textarea>
+            </div>
+          </div>
+          <div class="modal-footer border-secondary">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-danger" id="announcementSaveBtn">
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="bg-dark text-white-50 py-4 border-top border-secondary">
+      <div class="container">
+        <div class="row align-items-center text-center text-md-start">
+          <div class="col-md-4 mb-3 mb-md-0">
+            <p class="fw-bold text-white mb-0">
+              <i class="fas fa-cross me-2"></i>St. Louis Catholic Church
+            </p>
+          </div>
+          <div class="col-md-4 mb-3 mb-md-0">
+            <p class="small mb-1">&copy; 2026 All Rights Reserved</p>
+            <p class="small">"Introibo ad altare Dei"</p>
+          </div>
+          <div class="col-md-4 text-md-end">
+            <a
+              href="https://www.facebook.com/share/15JFYuHT6f/"
+              class="text-white-50 me-3"
+              aria-label="Facebook"
+              target="_blank"
+            >
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a
+              href="https://www.instagram.com/stlouis_egbeda?igsh=MXMzbXoyejNoeDRtaw=="
+              class="text-white-50 me-3"
+              aria-label="Instagram"
+              target="_blank"
+            >
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a
+              href="https://www.youtube.com/@ST.LOUISCATHOLICCHURCHEGBE-p2v"
+              class="text-white-50 me-3"
+              aria-label="YouTube"
+              target="_blank"
+            >
+              <i class="fab fa-youtube"></i>
+            </a>
+            <a href="#" class="text-white-50" aria-label="WhatsApp">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="roster.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const navLinks = document.querySelectorAll(".nav-link");
+        const navbarCollapse = document.querySelector(".navbar-collapse");
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", () => {
+            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+              toggle: false,
+            });
+            bsCollapse.hide();
+          });
+        });
+
+        const themeToggle = document.getElementById("themeToggle");
+        const themeIcon = themeToggle ? themeToggle.querySelector("i") : null;
+
+        function syncThemeIcon() {
+          const isLight =
+            document.documentElement.getAttribute("data-theme") === "light";
+          if (themeIcon) {
+            themeIcon.classList.toggle("fa-sun", !isLight);
+            themeIcon.classList.toggle("fa-moon", isLight);
+          }
+        }
+
+        syncThemeIcon();
+
+        if (themeToggle) {
+          themeToggle.addEventListener("click", () => {
+            const isLight =
+              document.documentElement.getAttribute("data-theme") === "light";
+            if (isLight) {
+              document.documentElement.removeAttribute("data-theme");
+              localStorage.setItem("theme", "dark");
+            } else {
+              document.documentElement.setAttribute("data-theme", "light");
+              localStorage.setItem("theme", "light");
+            }
+            syncThemeIcon();
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

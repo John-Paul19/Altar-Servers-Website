@@ -1,0 +1,23 @@
+# Environment variables — NEVER commit these
+# Covers .env, .env.backup, .env.production, etc. An .env.example with
+# placeholder values is the one variant that's safe to commit.
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# OS files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Editor
+.vscode/
+.idea/

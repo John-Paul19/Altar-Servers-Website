@@ -6,10 +6,41 @@
   --text-light: #f0f0f0;
   --text-muted: #a0a0a0;
   --border-color: #2a2a3e;
+  --card-gradient-start: #1a1a2e;
+  --card-gradient-end: #2a2a3e;
+  --table-border: rgba(255, 255, 255, 0.1);
+  --accent-gold: #c9a227;
+  --accent-gold-light: #e0bf4f;
   --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 15px 50px rgba(0, 0, 0, 0.5);
   --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+:root[data-theme="light"] {
+  --dark-navy: #ffffff;
+  --darker-navy: #f4f4f8;
+  --text-light: #1a1a2e;
+  --text-muted: #5c5c72;
+  --border-color: #e0e0ea;
+  --card-gradient-start: #ffffff;
+  --card-gradient-end: #f2f2f7;
+  --table-border: rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 15px 50px rgba(0, 0, 0, 0.1);
+}
+
+/* Bootstrap's text-white / text-white-50 utilities were written assuming
+   every section stays dark. In light mode the sections they sit in go
+   light too, so force them back to the themed text colors. Scoped to
+   <section> so the (intentionally always-dark) footer is untouched. */
+:root[data-theme="light"] section .text-white {
+  color: var(--text-light) !important;
+}
+
+:root[data-theme="light"] section .text-white-50 {
+  color: var(--text-muted) !important;
 }
 
 * {
@@ -88,8 +119,7 @@ a:hover {
   transform: translateX(-50%);
 }
 
-.nav-link:hover::after,
-.nav-link.active::after {
+.nav-link:hover::after {
   width: 80%;
 }
 
@@ -103,6 +133,26 @@ a:hover {
 
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23c41e3a' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-light);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.95rem;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--accent-red);
+  color: var(--accent-red);
 }
 
 .hero-section {
@@ -160,6 +210,7 @@ a:hover {
 }
 
 .hero-content h1 {
+  color: #f0f0f0;
   font-size: 4rem;
   line-height: 1.2;
   margin-bottom: 1.5rem;
@@ -188,26 +239,26 @@ a:hover {
 }
 
 .hero-content .btn-light {
-  background: var(--text-light);
-  color: var(--darker-navy);
+  background: #f0f0f0;
+  color: #0f0f1e;
 }
 
 .hero-content .btn-light:hover {
   background: var(--accent-red);
-  color: var(--text-light);
+  color: #f0f0f0;
   transform: translateY(-3px);
   box-shadow: var(--shadow-md);
 }
 
 .hero-content .btn-outline-light {
-  border-color: var(--text-light);
-  color: var(--text-light);
+  border-color: #f0f0f0;
+  color: #f0f0f0;
 }
 
 .hero-content .btn-outline-light:hover {
   background: var(--accent-red);
   border-color: var(--accent-red);
-  color: var(--text-light);
+  color: #f0f0f0;
   transform: translateY(-3px);
 }
 
@@ -290,7 +341,11 @@ section {
 
 
 .activity-card {
-  background: linear-gradient(135deg, #1a1a2e, #2a2a3e);
+  background: linear-gradient(
+    135deg,
+    var(--card-gradient-start),
+    var(--card-gradient-end)
+  );
   border-radius: 12px;
   padding: 2rem;
   height: 100%;
@@ -371,17 +426,35 @@ section {
 }
 
 .value-box {
-  background: rgba(196, 30, 58, 0.08);
+  background: linear-gradient(
+    135deg,
+    var(--card-gradient-start),
+    var(--card-gradient-end)
+  );
   border: 1px solid var(--border-color);
-  padding: 1.5rem;
-  border-radius: 10px;
+  border-top: 3px solid transparent;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  height: 100%;
+  box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
 
 .value-box:hover {
-  background: rgba(196, 30, 58, 0.15);
-  border-color: var(--accent-red);
-  transform: translateY(-4px);
+  transform: translateY(-8px);
+  border-top-color: var(--accent-gold);
+  box-shadow: var(--shadow-md);
+}
+
+.value-box .icon-box {
+  background: rgba(201, 162, 39, 0.15);
+  color: var(--accent-gold);
+}
+
+.value-box:hover .icon-box {
+  background: var(--accent-gold);
+  color: var(--darker-navy);
+  transform: scale(1.1);
 }
 
 .value-box h5 {
@@ -392,8 +465,97 @@ section {
   font-weight: 100;
 }
 
+#history {
+  position: relative;
+  overflow: hidden;
+}
+
+#history::before {
+  content: "";
+  position: absolute;
+  top: -30%;
+  left: -15%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.08), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+#history::after {
+  content: "";
+  position: absolute;
+  bottom: -25%;
+  right: -10%;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(196, 30, 58, 0.06), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+#history .container {
+  position: relative;
+  z-index: 1;
+}
+
+.history-patron {
+  color: var(--accent-gold);
+}
+
+#history .section-divider {
+  width: 140px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#history .section-divider::before {
+  content: "\f654";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  background: var(--dark-navy);
+  color: var(--accent-gold);
+  font-size: 1rem;
+  padding: 0 14px;
+}
+
+.history-quote {
+  position: relative;
+  max-width: 640px;
+  margin: 2rem auto 2.5rem;
+  padding: 0.5rem 2.5rem;
+  text-align: center;
+  font-family: "Lora", serif;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: var(--accent-gold);
+}
+
+.history-quote::before {
+  content: "\201C";
+  position: absolute;
+  top: -1.5rem;
+  left: 0.5rem;
+  font-family: "Lora", serif;
+  font-style: normal;
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: var(--accent-red);
+  opacity: 0.35;
+  line-height: 1;
+}
+
 .testimonial-card {
-  background: linear-gradient(135deg, #1a1a2e, #2a2a3e);
+  background: linear-gradient(
+    135deg,
+    var(--card-gradient-start),
+    var(--card-gradient-end)
+  );
   border-radius: 12px;
   padding: 2.5rem;
   text-align: center;
@@ -446,18 +608,18 @@ section {
 }
 
 .cta-banner {
-  background: linear-gradient(135deg, var(--darker-navy), var(--dark-navy));
+  background: linear-gradient(135deg, #0f0f1e, #1a1a2e);
   border-top: 3px solid var(--accent-red);
   border-bottom: 3px solid var(--accent-red);
 }
 
 .cta-banner h3 {
-  color: var(--text-light);
+  color: #f0f0f0;
   font-size: 2rem;
 }
 
 .cta-banner p {
-  color: var(--text-muted);
+  color: #a0a0a0;
   font-size: 1rem;
 }
 
@@ -762,6 +924,13 @@ footer .col-md-4:last-child {
   color: var(--accent-red) !important;
 }
 
+/* Bootstrap's .text-muted defaults to a dark gray meant for light
+   backgrounds (--bs-secondary-color), which is nearly invisible on our
+   dark theme. Point it at our own themed muted color instead. */
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
 button,
 a,
 input,
@@ -792,6 +961,9 @@ textarea:focus-visible {
   text-align: center;
   color: white;
   position: relative;
+  /* Contains the decorative ::before/::after circles, which sit at negative
+     offsets and would otherwise widen the page on narrow screens. */
+  overflow: hidden;
 }
 
 .roster-header::before {
@@ -824,6 +996,7 @@ textarea:focus-visible {
 }
 
 .roster-header h1 {
+  color: #f0f0f0;
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -837,7 +1010,11 @@ textarea:focus-visible {
 }
 
 .announcement-card {
-  background: linear-gradient(135deg, #1a1a2e, #2a2a3e);
+  background: linear-gradient(
+    135deg,
+    var(--card-gradient-start),
+    var(--card-gradient-end)
+  );
   border-radius: 12px;
   padding: 2rem;
   border-left: 4px solid transparent;
@@ -853,7 +1030,7 @@ textarea:focus-visible {
 }
 
 .announcement-card h4 {
-  color: #f0f0f0;
+  color: var(--text-light);
   font-size: 1.2rem;
   margin-bottom: 1rem;
 }
@@ -864,12 +1041,16 @@ textarea:focus-visible {
 }
 
 .roster-day {
-  background: linear-gradient(135deg, #1a1a2e, #2a2a3e);
+  background: linear-gradient(
+    135deg,
+    var(--card-gradient-start),
+    var(--card-gradient-end)
+  );
   border-radius: 12px;
   padding: 2.5rem;
   margin-bottom: 2rem;
   border-left: 4px solid var(--accent-red);
-  box-shadow: var(--shadow-smq);
+  box-shadow: var(--shadow-sm);
 }
 
 .roster-day h3 {
@@ -899,7 +1080,7 @@ textarea:focus-visible {
 
 .roster-table tbody td {
   padding: 1rem;
-  border-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--table-border);
 }
 
 .roster-table tbody tr {
@@ -908,24 +1089,6 @@ textarea:focus-visible {
 
 .roster-table tbody tr:hover {
   background-color: rgba(196, 30, 58, 0.05);
-}
-
-.status-confirmed {
-  background-color: rgba(76, 175, 80, 0.2);
-  color: #4caf50;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.status-pending {
-  background-color: rgba(255, 193, 7, 0.2);
-  color: #ffc107;
-  padding: 0.4rem 0.8rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
 }
 
 .roster-section-header,
@@ -941,7 +1104,7 @@ textarea:focus-visible {
 
 .roster-section-header h1,
 .announcement-heading h1 {
-  color: #f0f0f0;
+  color: var(--text-light);
   font-size: 2.2rem;
   margin: 0;
   min-width: 0;
@@ -1015,5 +1178,562 @@ textarea:focus-visible {
   .edit-btn {
     width: 100%;
     text-align: center;
+  }
+}
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background:
+    linear-gradient(135deg, rgba(15, 15, 30, 0.9), rgba(26, 26, 46, 0.95)),
+    url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnm40gmeTDRjvyM0A65cxCqI-hna78Gek965ARCIoBsy9LDgDyvtrKdMMv&s=10")
+      center/cover no-repeat;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 430px;
+  background: linear-gradient(
+    135deg,
+    var(--card-gradient-start),
+    var(--card-gradient-end)
+  );
+  border: 1px solid var(--border-color);
+  border-top: 3px solid var(--accent-red);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-lg);
+}
+
+.login-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  background: rgba(196, 30, 58, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--accent-red);
+}
+
+.login-title {
+  font-size: 1.8rem;
+  color: var(--text-light);
+  margin-bottom: 0.25rem;
+}
+
+.login-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+.login-card .form-label {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.login-error {
+  background: rgba(196, 30, 58, 0.12);
+  border-left: 4px solid var(--accent-red);
+  color: var(--text-light);
+  padding: 0.85rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.login-back {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.login-back:hover {
+  color: var(--accent-red);
+}
+
+@media (max-width: 576px) {
+  .login-card {
+    padding: 1.75rem 1.25rem;
+  }
+}
+
+.login-card .btn-contact {
+  background-color: var(--accent-red);
+}
+
+.login-card .btn-contact:hover {
+  background-color: var(--accent-red-light);
+}
+
+/* ---- admin bar, roster editing and messages ---- */
+
+.admin-bar {
+  background: linear-gradient(135deg, #0f0f1e, #1a1a2e);
+  border-bottom: 2px solid var(--accent-gold);
+  padding: 0.85rem 0;
+}
+
+.admin-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.admin-greeting {
+  color: #f0f0f0;
+  font-size: 0.9rem;
+}
+
+.admin-greeting strong {
+  color: var(--accent-gold);
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-btn {
+  background: transparent;
+  border: 1px solid rgba(240, 240, 240, 0.25);
+  color: #f0f0f0;
+  padding: 0.45rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.admin-btn:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+.admin-btn-primary {
+  background: var(--accent-red);
+  border-color: var(--accent-red);
+}
+
+.admin-btn-primary:hover {
+  background: var(--accent-red-light);
+  border-color: var(--accent-red-light);
+  color: #fff;
+}
+
+.admin-btn-ghost {
+  opacity: 0.75;
+}
+
+.page-message {
+  padding: 0.9rem 1.25rem;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.page-message-error {
+  background: rgba(196, 30, 58, 0.15);
+  color: var(--accent-red-light);
+  border-bottom: 2px solid var(--accent-red);
+}
+
+.page-message-success {
+  background: rgba(76, 175, 80, 0.15);
+  color: #4caf50;
+  border-bottom: 2px solid #4caf50;
+}
+
+.week-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.week-heading h2 {
+  font-size: 1.6rem;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.draft-badge {
+  background: rgba(201, 162, 39, 0.15);
+  border: 1px solid var(--accent-gold);
+  color: var(--accent-gold);
+  padding: 0.35rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.week-select {
+  background: var(--darker-navy);
+  color: var(--text-light);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  cursor: pointer;
+  max-width: 100%;
+}
+
+.roster-day-date {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 400;
+  font-family: "Poppins", sans-serif;
+  margin-left: 0.5rem;
+}
+
+.roster-empty {
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 1.5rem 0;
+}
+
+.roster-blank {
+  color: var(--text-muted);
+  opacity: 0.6;
+}
+
+.roster-input {
+  width: 100%;
+  background: var(--darker-navy);
+  color: var(--text-light);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.92rem;
+  font-family: inherit;
+}
+
+.roster-input:focus {
+  outline: none;
+  border-color: var(--accent-red);
+  box-shadow: 0 0 0 2px rgba(196, 30, 58, 0.15);
+}
+
+.roster-time {
+  max-width: 130px;
+}
+
+.roster-actions-col {
+  width: 48px;
+  text-align: center;
+}
+
+.row-remove-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.row-remove-btn:hover {
+  color: var(--accent-red);
+  background: rgba(196, 30, 58, 0.1);
+}
+
+.add-slot-btn {
+  background: transparent;
+  border: 1px dashed var(--border-color);
+  color: var(--text-muted);
+  padding: 0.5rem 1.1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 0.5rem;
+}
+
+.add-slot-btn:hover {
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+}
+
+.announcement-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.link-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  transition: var(--transition);
+}
+
+.link-btn:hover {
+  color: var(--accent-gold);
+}
+
+.link-btn-danger:hover {
+  color: var(--accent-red);
+}
+
+@media (max-width: 768px) {
+  .admin-bar-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-actions {
+    justify-content: stretch;
+  }
+
+  .admin-btn {
+    flex: 1 1 auto;
+  }
+
+  .roster-time {
+    max-width: none;
+  }
+}
+
+/* Bootstrap's .table hardcodes a white background through its own CSS
+   variables, which fought the dark card the roster sits on. Handing it the
+   theme's colours instead lets the card gradient show through in both modes. */
+.roster-table {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--text-light);
+  --bs-table-hover-bg: rgba(196, 30, 58, 0.07);
+  --bs-table-hover-color: var(--text-light);
+  --bs-table-border-color: var(--table-border);
+}
+
+/* ---- service groups ---- */
+
+.service-group {
+  margin-bottom: 1.75rem;
+}
+
+.service-group:last-of-type {
+  margin-bottom: 0.5rem;
+}
+
+.service-title {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.service-name {
+  font-family: "Lora", serif;
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--text-light);
+}
+
+.service-time-badge {
+  background: rgba(196, 30, 58, 0.12);
+  border: 1px solid rgba(196, 30, 58, 0.35);
+  color: var(--accent-red-light);
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.service-edit {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.service-edit .service-type {
+  flex: 0 1 180px;
+}
+
+.service-edit .service-label {
+  flex: 1 1 180px;
+}
+
+.service-edit .service-time {
+  flex: 0 1 120px;
+}
+
+.service-label.is-hidden {
+  display: none;
+}
+
+.service-remove-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.4rem 0.55rem;
+  border-radius: 4px;
+  transition: var(--transition);
+}
+
+.service-remove-btn:hover {
+  color: var(--accent-red);
+  background: rgba(196, 30, 58, 0.1);
+}
+
+.add-service-btn {
+  background: transparent;
+  border: 1px dashed var(--accent-gold);
+  color: var(--accent-gold);
+  padding: 0.55rem 1.2rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 1rem;
+}
+
+.add-service-btn:hover {
+  background: rgba(201, 162, 39, 0.12);
+}
+
+.post-cell {
+  color: var(--accent-red-light);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* On a phone the two-column table becomes a simple label/value stack, so
+   nothing has to wrap and each assignment reads as one line. */
+@media (max-width: 575.98px) {
+  .roster-day {
+    padding: 1.25rem 1rem;
+  }
+
+  .roster-table thead {
+    display: none;
+  }
+
+  .roster-table,
+  .roster-table tbody,
+  .roster-table tr,
+  .roster-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .roster-table tbody tr {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--table-border);
+  }
+
+  .roster-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .roster-table tbody td {
+    padding: 0 !important;
+    border: none;
+    width: auto;
+  }
+
+  .roster-table .post-cell {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    flex: 0 0 auto;
+  }
+
+  .roster-table tbody td:nth-child(2) {
+    text-align: right;
+    flex: 1 1 auto;
+  }
+
+  .service-name {
+    font-size: 1.02rem;
+  }
+
+  /* Editing on a phone: each slot becomes its own card, with the post and its
+     remove button on one line and the name beneath, so it is always obvious
+     which button belongs to which slot. */
+  .is-editing .roster-table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "post   remove"
+      "name   name";
+    gap: 0.45rem 0.6rem;
+    align-items: center;
+    padding: 0.75rem;
+    margin-bottom: 0.6rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .is-editing .roster-table tbody tr td:nth-child(1) {
+    grid-area: post;
+  }
+
+  .is-editing .roster-table tbody tr td:nth-child(2) {
+    grid-area: name;
+    text-align: left;
+  }
+
+  .is-editing .roster-table tbody tr td.roster-actions-col {
+    grid-area: remove;
+    width: auto;
+    text-align: right;
+  }
+
+  /* Service header: type and occasion full width, time and delete share a row. */
+  .service-edit {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .service-edit .service-type,
+  .service-edit .service-label {
+    grid-column: 1 / -1;
+  }
+
+  .service-edit .service-time {
+    grid-column: 1;
+  }
+
+  .service-remove-btn {
+    grid-column: 2;
+    justify-self: end;
   }
 }

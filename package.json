@@ -1,0 +1,33 @@
+{
+  "name": "altar-servers-site",
+  "version": "1.0.0",
+  "description": "St. John Berchmans Altar Servers - St. Louis Catholic Church, Egbeda",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "create-admin": "node scripts/createAdmin.js",
+    "seed": "node scripts/seedRoster.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/John-Paul19/Altar-Servers-Website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/John-Paul19/Altar-Servers-Website/issues"
+  },
+  "homepage": "https://github.com/John-Paul19/Altar-Servers-Website#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "connect-mongo": "^6.0.0",
+    "dotenv": "^18.0.3",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "express-session": "^1.19.0",
+    "mongoose": "^9.10.2"
+  }
+}
